@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dropdown Navigation</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+padding: 30px;
+}
+label {
+margin-right: 10px;
+}
+select {
+padding: 10px;
+margin-right: 20px;
+width: 300px;
+}
+button {
+padding: 10px 20px;
+}
+.row {
+display: flex;
+align-items: center;
+gap: 20px;
+}
+.row > div {
+display: flex;
+flex-direction: column;
+}
+</style>
+</head>
+<body>
+
+<div class="row">
+<div>
+<label for="dropdown1">Function:</label>
+<select id="dropdown1" onchange="updateOptions()">
+<option value="">-- Select Function --</option>
+<option value="bau">BAU Support</option>
+<option value="devices">Tech Devices</option>
+<option value="infra">Tech Infrastructure</option>
+<option value="software">Software/Online Platforms Support</option>
+</select>
+</div>
+
+<div>
+<label for="dropdown2">Related Function:</label>
+<select id="dropdown2">
+<option value="">-- Select Related Function --</option>
+</select>
+</div>
+
+<button onclick="goToPage()">Go</button>
+</div>
+
+<script>
+const optionsMap = {
+bau: [
+{ label: "1st & 2nd Level Requests & Incidents", link: "rapid" },
+{ label: "HTHA Tenant M365 (ERROL\\RC)", link: "rapid" },
+{ label: "3rd Level Support", link: "htha" },
+{ label: "RACV Access Request via ServiceNow", link: "htha" },
+{ label: "RACV Solar Tenant M36 (ERROL\\RC)", link: "racv" }
+],
+devices: [
+{ label: "Windows/Apple Technical Support", link: "rapid" },
+{ label: "Mobile Support", link: "rapid" },
+{ label: "HTHA Devices Configuration and Setup", link: "htha" },
+{ label: "Printers (Melb, NP, NSW)", link: "htha" },
+{ label: "RACV - Devices", link: "racv" }
+],
+infra: [
+{ label: "M365", link: "rapid" },
+{ label: "Adobe", link: "rapid" },
+{ label: "Cloud Apps", link: "rapid" },
+{ label: "Cloudflare", link: "rapid" },
+{ label: "Office Sites", link: "htha" },
+{ label: "GoDaddy", link: "htha" },
+{ label: "Telstra", link: "htha" },
+{ label: "Site Internet and Local Connections", link: "htha" },
+{ label: "Nexus Hub (Central Coast)", link: "htha" },
+{ label: "Ventra IP", link: "htha" }
+],
+software: [
+{ label: "Mimecast Email", link: "rapid" },
+{ label: "Adobe Licensing", link: "rapid" },
+{ label: "Apple Business Manager", link: "htha" },
+{ label: "AutoCAD", link: "htha" },
+{ label: "Bitwarden", link: "htha" },
+{ label: "Convergence", link: "htha" },
+{ label: "Domains (GoDaddy)", link: "htha" },
+{ label: "FAT ZEBRA", link: "rapid" },
+{ label: "FormBay", link: "rapid" },
+{ label: "Formitize", link: "rapid" },
+{ label: "Google Workspace", link: "htha" },
+{ label: "iAuditor", link: "htha" },
+{ label: "IVE", link: "htha" },
+{ label: "Lucid Charts", link: "htha" },
+{ label: "Mimecast Security Internal", link: "htha" },
+{ label: "Near Maps", link: "htha" },
+{ label: "NetSuite", link: "htha" },
+{ label: "NICE CXONE", link: "htha" },
+{ label: "NICE DOJO", link: "htha" },
+{ label: "ODOO (WILDO)", link: "htha" },
+{ label: "Open Solar", link: "htha" },
+{ label: "PipeDrive", link: "htha" },
+{ label: "RBI Website", link: "htha" },
+{ label: "Salesforce", link: "htha" },
+{ label: "Satellite Imagery", link: "htha" },
+{ label: "SimPRO", link: "rapid" },
+{ label: "SimPRO to RACV API", link: "rapid" },
+{ label: "SecureDOCS", link: "htha" },
+{ label: "Speechify", link: "htha" },
+{ label: "Telstra", link: "htha" },
+{ label: "Aurora TBA “PAT TALE”", link: "htha" },
+{ label: "Sketchup TBA", link: "htha" },
+{ label: "Synchro (Solar HR System)", link: "htha" }
+]
+};
+
+const links = {
+rapid: "https://hometradeshub.sharepoint.com/:u:/r/SitePages/Rapid-Circle-Support.aspx?csf=1&web=1&share=EWqYnG7S51tPkd06pnhanWQB4y1_FVdOO4UY20wrm4h_9Q&e=vNKK0Q",
+htha: "https://hometradeshub.sharepoint.com/:u:/r/SitePages/HTHA-Operations-Team.aspx?csf=1&web=1&share=Ee-yexDWbgBOkD8t9SPwtYAB4NctZjxpBll0dYw1bQ9Jug&e=qdDuti",
+racv: "https://hometradeshub.sharepoint.com/:u:/r/SitePages/RACV-Internal-Tech-Support.aspx?csf=1&web=1&share=ERa30kXz-RRGrzp9aH0Qbk8BfcdOY7_spsHcAuk7yx2icg&e=9e1GZI"
+};
+
+function updateOptions() {
+const dropdown1 = document.getElementById("dropdown1").value;
+const dropdown2 = document.getElementById("dropdown2");
+dropdown2.innerHTML = '<option value="">-- Select Related Function --</option>';
+
+if (optionsMap[dropdown1]) {
+optionsMap[dropdown1].forEach(item => {
+const option = document.createElement("option");
+option.value = item.link;
+option.textContent = item.label;
+dropdown2.appendChild(option);
+});
+}
+}
+
+function goToPage() {
+const dropdown2 = document.getElementById("dropdown2");
+const selectedLink = dropdown2.value;
+
+if (selectedLink && links[selectedLink]) {
+window.open(links[selectedLink], "_blank");
+} else {
+alert("Please select a related function.");
+}
+}
+</script>
+
+</body>
+</html>
